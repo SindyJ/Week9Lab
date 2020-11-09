@@ -3,6 +3,8 @@
   <persistence-unit name="Week9LabPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <non-jta-data-source>jdbc/userdb</non-jta-data-source>
+    <class>models.Role</class>
+    <class>models.User</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>
