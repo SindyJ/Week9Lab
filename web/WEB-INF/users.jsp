@@ -41,7 +41,7 @@
         <div class="col-30"> 
             <h1>Edit Users</h1>
         <form method="post" action="user">
-            Email: <input type="text" name="editEmail" value="${editEmail}"/><br>
+            Email: <input type="text" name="editEmail" value="${editEmail}" /><br>
             First Name: <input type="text" name="editFName" value="${editFName}"/><br>
             Last Name: <input type="text" name="editLName" value="${editLName}"/><br>
             Password: <input type="password" name="editPassword" value="${editPassword}"/><br>
@@ -74,16 +74,16 @@
                         <td>${user.firstName}</td>
                         <td>${user.lastName}</td>
                         
-                        <c:if test="${user.role eq 1}"><td>System Admin</td></c:if>
-                        <c:if test="${user.role eq 2}"><td>Regular User</td></c:if>
-                        <c:if test="${user.role eq 3}"><td>Company Admin</td></c:if>
+                        <c:if test="${user.role.roleId eq 1}"><td>System Admin</td></c:if>
+                        <c:if test="${user.role.roleId  eq 2}"><td>Regular User</td></c:if>
+                        <c:if test="${user.role.roleId  eq 3}"><td>Company Admin</td></c:if>
                         
                     <form method="post" action="user">
                         <input type="hidden" name="email_e" value="${user.email}">
                         <input type="hidden" name="FName_e" value="${user.firstName}">
                         <input type="hidden" name="LName_e" value="${user.lastName}">
                         <input type="hidden" name="pw_e" value="${user.password}">
-                        <input type="hidden" name="role_e" value="${user.role}">
+                        <input type="hidden" name="role_e" value="${user.role.roleId}">
                         <td><input type="submit" value="Edit" >
                             <input type="hidden" name="action" value="edit"></td>
                     </form>

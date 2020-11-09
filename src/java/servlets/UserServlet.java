@@ -8,6 +8,7 @@ package servlets;
 import dataaccess.UserDB;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.User;
+import services.UserService;
 
 /**
  *
@@ -28,14 +30,11 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        UserDB userDB = new UserDB(); 
-        ArrayList<User> users = new ArrayList<>();
+        UserService us = new UserService();
+        List<User> users;
         
         try {
-            if(users != null) {
-                users = null;
-            }
-            users = userDB.getAll();
+            users = us.getAll();
             request.setAttribute("users", users);
             
         } catch (Exception ex) {
@@ -51,7 +50,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String action = request.getParameter("action");
-        UserDB userDB = new UserDB();
+        UserService us = new UserService();
         
         if (action.equals("add")) {
             String email = request.getParameter("addEmail");
@@ -60,9 +59,8 @@ public class UserServlet extends HttpServlet {
             String pw = request.getParameter("addPassword");
             int role = Integer.parseInt(request.getParameter("addRole"));
             
-            User user = new User(email, 1, fname, lname, pw, role);
             try {
-                userDB.insert(user);
+                us.insert(email, true, fname, lname, pw, role);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -81,12 +79,11 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("editRole", editRole); 
         }
         else if (action.equals("delete")) {
-            User user_d = null;
+//            User user_d = null;
             String deleteEmail = request.getParameter("email_d");
             System.out.println(deleteEmail + "deleting");
             try {
-                user_d = userDB.get(deleteEmail);
-                userDB.delete(user_d);
+                us.delete(deleteEmail);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -97,10 +94,9 @@ public class UserServlet extends HttpServlet {
             String lname = request.getParameter("editLName");
             String pw = request.getParameter("editPassword");
             int role = Integer.parseInt(request.getParameter("editRole"));
-            
-            User user = new User(email, 1, fname, lname, pw, role);
+
             try {
-                userDB.update(user);
+                us.update(email, true, fname, lname, pw, role);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -110,13 +106,12 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("editFName", "");
             request.setAttribute("editLName", "");
             request.setAttribute("editPassword", "");
-            request.setAttribute("editPassword", "");
-                     
+            request.setAttribute("editPassword", "");        
         }
         
-        ArrayList<User> users;
+        List<User> users;
             try {
-                users = userDB.getAll();
+                users = us.getAll();
                 request.setAttribute("users", users);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);

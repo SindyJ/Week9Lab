@@ -140,7 +140,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "models.User[ email=" + email + " ]";
+        return "models.User[ email=" + email + " " + firstName + " ]";
     }
     
 }
