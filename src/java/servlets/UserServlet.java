@@ -81,7 +81,6 @@ public class UserServlet extends HttpServlet {
         else if (action.equals("delete")) {
 //            User user_d = null;
             String deleteEmail = request.getParameter("email_d");
-            System.out.println(deleteEmail + "deleting");
             try {
                 us.delete(deleteEmail);
             } catch (Exception ex) {

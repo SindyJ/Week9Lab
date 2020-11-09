@@ -48,7 +48,6 @@ public class UserService {
     public void delete(String email) throws Exception {
         UserDB userDB = new UserDB();
         User user = userDB.get(email);
-        System.out.println(user.toString() + " this is in delete");
         userDB.delete(user);
     }
     
